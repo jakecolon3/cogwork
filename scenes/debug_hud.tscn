@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dwcu4q4jqepj3"]
+
+[ext_resource type="Script" uid="uid://eoyiftu5ijg0" path="res://script/spedometer.gd" id="1_36slo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6w6ra"]
+font_size = 24
+
+[node name="DebugHud" type="Control" unique_id=15337092]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Spedometer" type="Label" parent="." unique_id=537709340]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_6w6ra")
+script = ExtResource("1_36slo")

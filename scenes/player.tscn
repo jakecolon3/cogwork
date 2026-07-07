@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://0au7onwtrdaq"]
+
+[ext_resource type="Script" uid="uid://0m24ja08vu6s" path="res://script/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://24u2ge7qvp5d" path="res://sprite/protag.png" id="2_qhqgy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6w6ra"]
+size = Vector2(16, 21.333332)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6w6ra"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qhqgy")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D" unique_id=323791644]
+floor_stop_on_slope = false
+floor_constant_speed = true
+floor_block_on_wall = false
+script = ExtResource("1_g2els")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=829484731]
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_6w6ra")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1462579289]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_6w6ra")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2104174021]
+ignore_rotation = false
+rotation_smoothing_speed = 7.0

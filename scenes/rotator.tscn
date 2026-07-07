@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://ckyp1upbnj55a"]
+
+[ext_resource type="Texture2D" uid="uid://btm4vlsmnxvyw" path="res://icon.svg" id="1_r08b0"]
+[ext_resource type="Script" uid="uid://ca252v2essduy" path="res://script/rotator.gd" id="1_wqnld"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6w6ra"]
+size = Vector2(64, 64)
+
+[node name="Rotator" type="Area2D" unique_id=1681111025]
+script = ExtResource("1_wqnld")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=226253901]
+shape = SubResource("RectangleShape2D_6w6ra")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1567596872]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_r08b0")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
