@@ -1,9 +1,18 @@
 [gd_scene format=3 uid="uid://calh4p3vdfq2h"]
 
 [ext_resource type="PackedScene" uid="uid://be420sg68kiu6" path="res://scenes/tile.tscn" id="1_gojnm"]
+[ext_resource type="PackedScene" uid="uid://b2v5eiqe33qjy" path="res://scenes/platform.tscn" id="2_paw1w"]
+[ext_resource type="PackedScene" uid="uid://ckyp1upbnj55a" path="res://scenes/rotator.tscn" id="3_x4b8f"]
+[ext_resource type="PackedScene" uid="uid://qf5eg5w6gutf" path="res://scenes/platform_rotator.tscn" id="4_tmr53"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6w6ra"]
 font_size = 50
+
+[sub_resource type="Curve2D" id="Curve2D_x4b8f"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -96, 0, 0, 0, 0, 112, -96, 0, 0, 0, 0, 160, -8, 0, 0, 0, 0, 208, -104)
+}
+point_count = 5
 
 [node name="TestLevel" type="Node2D" unique_id=232982170]
 
@@ -595,3 +604,18 @@ offset_right = 733.0
 offset_bottom = 365.0
 text = "DEBUG LEVEL"
 label_settings = SubResource("LabelSettings_6w6ra")
+
+[node name="Platform" parent="." unique_id=423917952 node_paths=PackedStringArray("path") instance=ExtResource("2_paw1w")]
+position = Vector2(544, 512)
+path = NodePath("../Path2D")
+
+[node name="Rotator" parent="." unique_id=1681111025 instance=ExtResource("3_x4b8f")]
+position = Vector2(320, 576)
+
+[node name="PlatformRotator" parent="." unique_id=1156032691 node_paths=PackedStringArray("platforms") instance=ExtResource("4_tmr53")]
+position = Vector2(704, 576)
+platforms = [NodePath("../Platform")]
+
+[node name="Path2D" type="Path2D" parent="." unique_id=489050284]
+position = Vector2(544, 512)
+curve = SubResource("Curve2D_x4b8f")

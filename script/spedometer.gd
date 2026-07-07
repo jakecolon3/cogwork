@@ -8,4 +8,5 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-    text = "Velocity: {a}".format({"a": get_node('/root/Main/Player').velocity})
+    var player := get_node('/root/Main/Player')
+    text = "Velocity: {a}\nFriction: {b}".format({"a": player.velocity, "b": player.air_friction})

@@ -16,3 +16,11 @@ marchingegni attivano cose (opzionalmente) e ruotano il personaggio
      |   |
      |   |
      |_x_|
+
+# TODO
+- [ ] tilemap
+    https://docs.godotengine.org/en/stable/tutorials/2d/using_tilesets.html
+- [ ] movement rework
+- [ ] ostacoli
+- [ ] blocchi
+- [ ] trampolino

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://qf5eg5w6gutf"]
+
+[ext_resource type="PackedScene" uid="uid://ckyp1upbnj55a" path="res://scenes/rotator.tscn" id="1_ogaqf"]
+[ext_resource type="Script" uid="uid://csvyhbau1xdjo" path="res://script/platform_rotator.gd" id="2_4w2xs"]
+
+[node name="PlatformRotator" unique_id=1681111025 node_paths=PackedStringArray("platforms") instance=ExtResource("1_ogaqf")]
+script = ExtResource("2_4w2xs")
+platforms = []
+
+[node name="Sprite2D" parent="." index="1" unique_id=1567596872]
+rotation = 0.7853982

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b2v5eiqe33qjy"]
+
+[ext_resource type="Texture2D" uid="uid://bmy6w2tx5f4lx" path="res://sprite/tile.png" id="1_ba0x2"]
+[ext_resource type="Script" uid="uid://cmyghpm5comu" path="res://script/platform.gd" id="1_nlgqw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6w6ra"]
+size = Vector2(160, 32)
+
+[node name="Platform" type="AnimatableBody2D" unique_id=808564488]
+script = ExtResource("1_nlgqw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=775236063]
+shape = SubResource("RectangleShape2D_6w6ra")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1235415942]
+offset_left = -80.0
+offset_top = -16.0
+offset_right = 80.0
+offset_bottom = 16.0
+texture = ExtResource("1_ba0x2")
+expand_mode = 1
+stretch_mode = 1
