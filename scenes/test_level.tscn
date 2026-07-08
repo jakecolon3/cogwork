@@ -38,7 +38,7 @@ path = NodePath("../Path2D")
 position = Vector2(320, 576)
 
 [node name="PlatformRotator" parent="." unique_id=1156032691 node_paths=PackedStringArray("platforms") instance=ExtResource("4_tmr53")]
-position = Vector2(704, 576)
+position = Vector2(768, 576)
 platforms = [NodePath("../Platform")]
 
 [node name="Tiles" parent="." unique_id=416365497 instance=ExtResource("4_x4b8f")]
