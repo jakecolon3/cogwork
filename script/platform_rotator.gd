@@ -6,7 +6,6 @@ class_name PlatformRotator
 func _ready() -> void:
     if not platforms:
         push_warning("There is a platform rotator without any assigned platforms!")
-    print("platform: ", platforms)
 
 
 func left_action() -> void:

@@ -477,19 +477,18 @@ texture_region_size = Vector2i(24, 24)
 texture = ExtResource("2_od8sr")
 texture_region_size = Vector2i(24, 24)
 0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 12, -0.033758163, -8.134563, 12, 12)
-0:0/0/custom_data_0 = true
+0:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
 
 [sub_resource type="TileSet" id="TileSet_6w6ra"]
 tile_size = Vector2i(24, 24)
 physics_layer_0/collision_layer = 1
+physics_layer_1/collision_layer = 2
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "BaseTerrain"
 terrain_set_0/terrain_0/color = Color(0.18353498, 5.2943826e-05, 0.65486234, 1)
-custom_data_layer_0/name = "deadly"
-custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_od8sr")
 sources/1 = SubResource("TileSetAtlasSource_jhpg2")
 
 [node name="Tiles" type="TileMapLayer" unique_id=416365497]
 tile_set = SubResource("TileSet_6w6ra")
+use_kinematic_bodies = true

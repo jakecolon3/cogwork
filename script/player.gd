@@ -112,3 +112,10 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
     pass
+
+
+# handle obstacle collisions
+# TODO: differentiate bodies in same collision layer? maybe not necessary
+func _on_collisions_body_entered(body: Node2D) -> void:
+    print("dead")
+    die()

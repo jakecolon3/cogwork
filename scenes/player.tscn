@@ -17,6 +17,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4v1xc"]
+size = Vector2(32, 32)
+
 [node name="Player" type="CharacterBody2D" unique_id=323791644]
 floor_stop_on_slope = false
 floor_constant_speed = true
@@ -33,3 +36,12 @@ sprite_frames = SubResource("SpriteFrames_6w6ra")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2104174021]
 ignore_rotation = false
 rotation_smoothing_speed = 7.0
+
+[node name="Collisions" type="Area2D" parent="." unique_id=1442353706]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions" unique_id=916177598]
+shape = SubResource("RectangleShape2D_4v1xc")
+debug_color = Color(0.7730596, 0, 0.12144857, 0.41960785)
+
+[connection signal="body_entered" from="Collisions" to="." method="_on_collisions_body_entered"]
