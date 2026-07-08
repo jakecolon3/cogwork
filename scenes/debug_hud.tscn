@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://eoyiftu5ijg0" path="res://script/spedometer.gd" id="1_36slo"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6w6ra"]
-font_size = 24
 
 [node name="DebugHud" type="Control" unique_id=15337092]
 layout_mode = 3

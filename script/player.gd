@@ -2,13 +2,13 @@ extends CharacterBody2D
 class_name Player
 
 
-const SPEED            = 300.0
-const ACCEL            = 70.0
-const AIR_ACCEL        = 60.0
-const SPEED_CAP_H      = 300.0
+const SPEED            = 200.0
+const ACCEL            = 35.0
+const AIR_ACCEL        = 30.0
+const SPEED_CAP_H      = 150.0
 const SPEED_CAP_V      = 10000.0
 const FRICTION_CAP     = 600.0
-const JUMP_VELOCITY    = -600.0
+const JUMP_VELOCITY    = -300.0
 const LERP_SPEED       = 12.0
 const INPUT_BUFFER     = 10
 const FRICTION         = 0.2
@@ -86,12 +86,13 @@ func _physics_process(delta: float) -> void:
     # start falling when jump is released
     if (Input.is_action_just_released("jump")
         and velocity.dot(gravity_direction) < 0.0):
-        velocity = velocity.slide(gravity_direction)
+        velocity = velocity.slide(right_vec) * 0.25 + velocity.slide(gravity_direction)
 
+    # scale air friction based on speed (not working rn)
     air_friction = lerp(MAX_AIR_FRICTION,
-                                   AIR_FRICTION,
-                                   clamp(velocity.slide(gravity_direction).length() / FRICTION_CAP,
-                                   0, 1))
+                        AIR_FRICTION,
+                        clamp(velocity.slide(gravity_direction).length() / FRICTION_CAP,
+                        0, 1))
     velocity -= velocity.slide(gravity_direction) * (
                 FRICTION if is_on_floor() else air_friction)
     # TODO: rework this shit

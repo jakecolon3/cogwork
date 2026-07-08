@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://24u2ge7qvp5d" path="res://sprite/protag.png" id="2_qhqgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6w6ra"]
-size = Vector2(16, 21.333332)
+size = Vector2(32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6w6ra"]
 animations = [{
@@ -24,11 +24,10 @@ floor_block_on_wall = false
 script = ExtResource("1_g2els")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=829484731]
-scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_6w6ra")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1462579289]
-scale = Vector2(4, 4)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_6w6ra")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2104174021]

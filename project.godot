@@ -17,8 +17,11 @@ config/icon="res://icon.svg"
 
 [display]
 
+window/size/viewport_width=556
+window/size/viewport_height=324
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/stretch/aspect="keep_width"
+window/stretch/scale_mode="integer"
 
 [dotnet]
 
@@ -76,6 +79,7 @@ interact={
 [physics]
 
 3d/physics_engine="Jolt Physics"
+2d/default_gravity=500.0
 
 [rendering]
 

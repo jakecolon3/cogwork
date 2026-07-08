@@ -7,7 +7,6 @@
 [node name="Main" type="Node2D" unique_id=420152373]
 
 [node name="Player" parent="." unique_id=323791644 instance=ExtResource("1_o5qli")]
-metadata/_edit_lock_ = true
 
 [node name="TestLevel" parent="." unique_id=232982170 instance=ExtResource("2_0wfyh")]
 
