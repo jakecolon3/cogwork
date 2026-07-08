@@ -77,8 +77,8 @@ func _physics_process(delta: float) -> void:
 
     # slide returns a vector which has only has the component of the starting vector that is perpendicular to the argument
     # also jumps if there's a jump in the input buffer
-    if (is_on_floor() and Input.is_action_just_pressed("jump")) or (
-        is_on_floor() and "jump" in input_buffer):
+    if (is_on_floor() and (Input.is_action_just_pressed("jump")
+                           or "jump" in input_buffer)):
         velocity = velocity.slide(gravity_direction) + JUMP_VELOCITY * gravity_direction
     # buffer the input
     elif Input.is_action_just_pressed("jump"):
@@ -86,8 +86,9 @@ func _physics_process(delta: float) -> void:
     # HACK: this makes the input buffer duration based on physics ticks/sec
     else:
         add_to_input_buffer("")
+
     # start falling when jump is released
-    if (Input.is_action_just_released("jump")
+    if (not is_on_floor() and not Input.is_action_pressed("jump")
         and velocity.dot(gravity_direction) < 0.0):
         velocity = velocity.slide(right_vec) * 0.25 + velocity.slide(gravity_direction)
 
