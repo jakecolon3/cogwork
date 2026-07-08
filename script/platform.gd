@@ -16,14 +16,15 @@ func step_backward() -> void:
 
 
 func _ready() -> void:
-    print("path: ", path)
+    pass
+    # print("path: ", path)
 
 
 func _physics_process(delta: float) -> void:
     if path:
-        print("position: ", position, "; target position: ", path.curve.get_point_position(point_index) + path.global_position)
+        # print("position: ", position, "; target position: ", path.curve.get_point_position(point_index) + path.global_position)
         var new_pos := path.curve.get_point_position(point_index) + path.global_position
-        print(new_pos)
+        # print(new_pos)
         position = position.move_toward(new_pos, platform_speed * delta)
 
 
