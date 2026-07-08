@@ -20,11 +20,10 @@ var attached         : bool
 var attached_to      : Rotator
 var input_buffer     : Array[String]
 var air_friction     : float
+var respawn_location : Vector2
 
 
 func _ready() -> void:
-    var screen_size = get_viewport_rect().size
-    position = Vector2(screen_size.x / 2, screen_size.y / 2)
     gravity_direction = Vector2(0, 1)
     right_vec = Vector2(1, 0)
     input_buffer = []
@@ -49,6 +48,10 @@ func debug_inputs() -> void:
     if Input.is_action_just_pressed("debug_4"):
         gravity_direction = Vector2(-1, 0)
         print("debug_4")
+
+
+func die() -> void:
+    set_deferred("position", respawn_location)
 
 
 func rotator_interact(rotator: Rotator) -> void:
