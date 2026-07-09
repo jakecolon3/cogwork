@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 
+const EPSILON          = 1e-3
 const SPEED            = 200.0
 const ACCEL            = 35.0
 const AIR_ACCEL        = 30.0
@@ -11,6 +12,7 @@ const FRICTION_CAP     = 600.0
 const JUMP_VELOCITY    = -300.0
 const LERP_SPEED       = 12.0
 const INPUT_BUFFER     = 10
+const POS_BUFFER_SIZE  = 3
 const FRICTION         = 0.2
 const AIR_FRICTION     = 0.01
 const MAX_AIR_FRICTION = 0.3
@@ -21,12 +23,24 @@ var attached_to      : Rotator
 var input_buffer     : Array[String]
 var air_friction     : float
 var respawn_location : Vector2
+var position_buffer  : Array[Vector2]
+var gear_sprite      : AnimatedSprite2D
 
 
 func _ready() -> void:
     gravity_direction = Vector2(0, 1)
     right_vec = Vector2(1, 0)
     input_buffer = []
+    position_buffer = []
+    gear_sprite = $GearSprite
+    $GearSprite.call_deferred("reparent", get_parent())
+    gear_sprite.play("default")
+
+
+func add_to_position_buffer(pos: Vector2):
+    position_buffer.push_front(pos)
+    while position_buffer.size() > POS_BUFFER_SIZE:
+        position_buffer.pop_back()
 
 
 func add_to_input_buffer(action: String):
@@ -52,6 +66,7 @@ func debug_inputs() -> void:
 
 func die() -> void:
     set_deferred("position", respawn_location)
+    gear_sprite.set_deferred("position", position)
 
 
 func rotator_interact(rotator: Rotator) -> void:
@@ -64,14 +79,26 @@ func rotator_interact(rotator: Rotator) -> void:
 
 
 func _physics_process(delta: float) -> void:
+    add_to_position_buffer(position)
     rotation = lerp_angle(rotation, gravity_direction.angle() - PI/2,
                           LERP_SPEED * delta)
+    # HACK:?
+    if rotation < EPSILON and rotation > 0 or rotation > -EPSILON and rotation < 0:
+        rotation = 0
+    if position_buffer.size() >= POS_BUFFER_SIZE:
+        gear_sprite.set_deferred("position", position_buffer[POS_BUFFER_SIZE - 1])
+    else:
+        gear_sprite.set_deferred("position", position)
+
     if attached:
         return
     debug_inputs()
     right_vec = gravity_direction.orthogonal()
 
+
     if not is_on_floor():
+        if $PlayerSprite.animation != "jump":
+            $PlayerSprite.play("jump")
         velocity += (get_gravity().length() * gravity_direction) * delta
 
 
@@ -104,6 +131,16 @@ func _physics_process(delta: float) -> void:
     var direction := Input.get_axis("move_left", "move_right")
     if direction:
         velocity = velocity.move_toward(direction * right_vec * SPEED_CAP_H + velocity.slide(right_vec), ACCEL)
+        if direction < 0:
+            $PlayerSprite.flip_h = false
+        else:
+            $PlayerSprite.flip_h = true
+        if $PlayerSprite.animation == "idle" and is_on_floor():
+            $PlayerSprite.play("start_walk")
+        if $PlayerSprite.animation == "jump" and is_on_floor():
+            $PlayerSprite.play("walk")
+    elif is_on_floor():
+        $PlayerSprite.play("idle")
 
     # needed for godot's internal physics stuff
     # WARN: maybe need to update this when attached
@@ -120,3 +157,8 @@ func _process(delta: float) -> void:
 func _on_collisions_body_entered(body: Node2D) -> void:
     print("dead")
     die()
+
+
+func _on_player_sprite_animation_finished() -> void:
+    if $PlayerSprite.animation == "start_walk":
+        $PlayerSprite.play("walk")

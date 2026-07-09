@@ -20,12 +20,16 @@ config/icon="res://icon.svg"
 window/size/viewport_width=556
 window/size/viewport_height=324
 window/stretch/mode="canvas_items"
-window/stretch/aspect="keep_width"
 window/stretch/scale_mode="integer"
 
 [dotnet]
 
 project/assembly_name="spin-to-win"
+
+[gui]
+
+theme/default_font_antialiasing=0
+theme/custom_font="uid://bifqholyrlcqo"
 
 [input]
 
