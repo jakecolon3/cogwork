@@ -2,16 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cr8vlkgemm3i6" path="res://script/interactable.gd" id="1_56v82"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6w6ra"]
-size = Vector2(8, 8)
-
 [node name="Interactable" type="Area2D" unique_id=1859719531]
 collision_layer = 4
 script = ExtResource("1_56v82")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1142049558]
-shape = SubResource("RectangleShape2D_6w6ra")
-debug_color = Color(0, 0.6498387, 0.050940625, 0.41960785)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

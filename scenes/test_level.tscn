@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://crpfepg0ukwxd" path="res://script/test_level.gd" id="1_tmr53"]
 [ext_resource type="PackedScene" uid="uid://b2v5eiqe33qjy" path="res://scenes/platform.tscn" id="2_paw1w"]
-[ext_resource type="PackedScene" uid="uid://ckyp1upbnj55a" path="res://scenes/rotator.tscn" id="3_x4b8f"]
 [ext_resource type="PackedScene" uid="uid://qf5eg5w6gutf" path="res://scenes/platform_rotator.tscn" id="4_tmr53"]
 [ext_resource type="PackedScene" uid="uid://cx7tawu23juve" path="res://scenes/tiles.tscn" id="4_x4b8f"]
+[ext_resource type="PackedScene" uid="uid://c110ft0hjoaon" path="res://scenes/rotator_new.tscn" id="5_tmr53"]
 
 [sub_resource type="Curve2D" id="Curve2D_x4b8f"]
 _data = {
@@ -34,9 +34,6 @@ label_settings = SubResource("LabelSettings_6w6ra")
 position = Vector2(544, 568)
 path = NodePath("../Path2D")
 
-[node name="Rotator" parent="." unique_id=1681111025 instance=ExtResource("3_x4b8f")]
-position = Vector2(320, 576)
-
 [node name="PlatformRotator" parent="." unique_id=1156032691 node_paths=PackedStringArray("platforms") instance=ExtResource("4_tmr53")]
 position = Vector2(768, 576)
 platforms = [NodePath("../Platform")]
@@ -47,3 +44,6 @@ navigation_enabled = false
 
 [node name="SpawnLocation" type="Marker2D" parent="." unique_id=2008464599]
 position = Vector2(544, 600)
+
+[node name="Rotator" parent="." unique_id=330066868 instance=ExtResource("5_tmr53")]
+position = Vector2(328, 584)

@@ -1,26 +1,21 @@
 extends Area2D
 class_name Interactable
 
-signal player_entered
-signal player_exited
-
-@export var sprite: AnimatedSprite2D
-
+@export var frames: SpriteFrames
+var sprite: AnimatedSprite2D
+var collision_area: CollisionShape2D
 
 func _ready() -> void:
-    sprite.reparent(self)
+    set_collision_layer_value(1, false)
+    set_collision_layer_value(3, true)
+    sprite = AnimatedSprite2D.new()
+    sprite.sprite_frames = frames
+    collision_area = CollisionShape2D.new()
+    var rect = RectangleShape2D.new()
+    rect.size = Vector2(16, 16)
+    collision_area.shape = rect
+    add_child(collision_area)
+    add_child(sprite)
 
-
-func _process(delta: float) -> void:
+func _interact() -> void:
     pass
-
-
-
-func _on_body_entered(body: Node2D) -> void:
-    if body is Player:
-        emit_signal("player_entered")
-
-
-func _on_body_exited(body: Node2D) -> void:
-    if body is Player:
-        emit_signal("player_exited")

@@ -6,8 +6,7 @@ var player      : Player
 
 
 func _ready() -> void:
-    set_collision_layer_value(1, false)
-    set_collision_layer_value(3, true)
+    super._ready()
 
 
 func left_action() -> void:
