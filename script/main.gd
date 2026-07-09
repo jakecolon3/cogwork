@@ -6,3 +6,13 @@ func _ready() -> void:
     var spawn_location : Vector2 = $TestLevel.spawn_location.position
     $Player.set_deferred("position", spawn_location)
     $Player.respawn_location = spawn_location
+    get_tree().paused = true
+
+
+func _on_ui_start_pressed() -> void:
+    get_tree().paused = false
+
+
+func _on_ui_toggled_pause() -> void:
+    get_tree().paused = !get_tree().paused
+

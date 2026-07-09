@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://cw388qlroowp7"]
+
+[ext_resource type="Script" uid="uid://dqlc0gi57b4gl" path="res://script/ui.gd" id="1_x4jx1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6w6ra"]
+font_size = 36
+
+[sub_resource type="Theme" id="Theme_6w6ra"]
+resource_name = "ButtonTheme"
+default_font_size = 18
+
+[node name="UI" type="Control" unique_id=681806059]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x4jx1")
+
+[node name="MainMenu" type="ColorRect" parent="." unique_id=605801004]
+layout_mode = 0
+offset_right = 556.0
+offset_bottom = 324.0
+color = Color(0.24926102, 0.0018115572, 0.2357803, 1)
+
+[node name="Label" type="Label" parent="MainMenu" unique_id=1694957904]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 96.0
+offset_right = 408.0
+offset_bottom = 140.0
+text = "Spin To Win"
+label_settings = SubResource("LabelSettings_6w6ra")
+
+[node name="StartButton" type="Button" parent="MainMenu" unique_id=1482374258]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 168.0
+offset_right = 332.0
+offset_bottom = 198.0
+theme_override_font_sizes/font_size = 18
+text = "START"
+
+[node name="CreditsButton" type="Button" parent="MainMenu" unique_id=1697727620]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 208.0
+offset_right = 332.0
+offset_bottom = 238.0
+theme_override_font_sizes/font_size = 18
+text = "CREDITS"
+
+[node name="ExitButton" type="Button" parent="MainMenu" unique_id=676488456]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 248.0
+offset_right = 332.0
+offset_bottom = 278.0
+theme = SubResource("Theme_6w6ra")
+text = "EXIT"
+
+[node name="PauseMenu" type="ColorRect" parent="." unique_id=980632456]
+visible = false
+layout_mode = 0
+offset_right = 556.0
+offset_bottom = 324.0
+color = Color(0, 0, 0, 0.26666668)
+
+[node name="Label" type="Label" parent="PauseMenu" unique_id=41925066]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 48.0
+offset_right = 360.0
+offset_bottom = 92.0
+theme_override_font_sizes/font_size = 36
+text = "PAUSED"
+
+[node name="ResumeButton" type="Button" parent="PauseMenu" unique_id=478832696]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 148.0
+offset_right = 320.0
+offset_bottom = 178.0
+theme_override_font_sizes/font_size = 18
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="PauseMenu" unique_id=201433035]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 196.0
+offset_right = 320.0
+offset_bottom = 226.0
+theme_override_font_sizes/font_size = 18
+text = "Quit"
+
+[connection signal="pressed" from="MainMenu/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MainMenu/ExitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PauseMenu/ResumeButton" to="." method="toggle_pause"]
+[connection signal="pressed" from="PauseMenu/QuitButton" to="." method="_on_quit_button_pressed"]

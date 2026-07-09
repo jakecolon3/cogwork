@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://0au7onwtrdaq" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://calh4p3vdfq2h" path="res://scenes/test_level.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dwcu4q4jqepj3" path="res://scenes/debug_hud.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://cw388qlroowp7" path="res://scenes/ui.tscn" id="5_tbgi4"]
 
 [node name="Main" type="Node2D" unique_id=420152373]
 script = ExtResource("1_jyhfs")
@@ -15,3 +16,9 @@ script = ExtResource("1_jyhfs")
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1830074562]
 
 [node name="DebugHud" parent="HUD" unique_id=15337092 instance=ExtResource("4_jyhfs")]
+
+[node name="UI" parent="HUD" unique_id=681806059 instance=ExtResource("5_tbgi4")]
+process_mode = 3
+
+[connection signal="start_pressed" from="HUD/UI" to="." method="_on_ui_start_pressed"]
+[connection signal="toggled_pause" from="HUD/UI" to="." method="_on_ui_toggled_pause"]
