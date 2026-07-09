@@ -25,6 +25,8 @@ var air_friction     : float
 var respawn_location : Vector2
 var position_buffer  : Array[Vector2]
 var gear_sprite      : AnimatedSprite2D
+var can_interact     : bool
+var interactable     : Interactable
 
 
 func _ready() -> void:
@@ -69,13 +71,22 @@ func die() -> void:
     gear_sprite.set_deferred("position", position)
 
 
+func interact() -> void:
+    if not can_interact:
+        return
+    if interactable is Rotator:
+        var rotator := interactable as Rotator
+        rotator_interact(rotator)
+
+
 func rotator_interact(rotator: Rotator) -> void:
     if attached:
         attached = false
-        return
-    print("attached")
-    attached    = true
-    attached_to = rotator
+        (attached_to as Rotator).detach()
+    else:
+        attached    = true
+        attached_to = rotator
+        rotator.attach(self)
 
 
 func _physics_process(delta: float) -> void:
@@ -90,11 +101,21 @@ func _physics_process(delta: float) -> void:
     else:
         gear_sprite.set_deferred("position", position)
 
+    if Input.is_action_just_pressed("interact"):
+        interact()
+
+
     if attached:
+        position = position.lerp(attached_to.position, LERP_SPEED * delta)
+        velocity = Vector2.ZERO
+        if Input.is_action_just_pressed("move_right"):
+            attached_to.right_action()
+        elif Input.is_action_just_pressed("move_left"):
+            attached_to.left_action()
         return
+
     debug_inputs()
     right_vec = gravity_direction.orthogonal()
-
 
     if not is_on_floor():
         if $PlayerSprite.animation != "jump":
@@ -162,3 +183,15 @@ func _on_collisions_body_entered(body: Node2D) -> void:
 func _on_player_sprite_animation_finished() -> void:
     if $PlayerSprite.animation == "start_walk":
         $PlayerSprite.play("walk")
+
+
+func _on_interact_area_area_entered(area: Area2D) -> void:
+    print("can interact with ", area)
+    interactable = area
+    can_interact = true
+
+
+func _on_interact_area_area_exited(area: Area2D) -> void:
+    print(area, " left interact range")
+    interactable = null
+    can_interact = false

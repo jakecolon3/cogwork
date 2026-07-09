@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://1hwhqktu83f2" path="res://sprite/temp-interactable-tiles.png" id="2_kk7jc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6w6ra"]
-size = Vector2(64, 64)
+size = Vector2(16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_drex8"]
 atlas = ExtResource("2_kk7jc")
@@ -22,6 +22,7 @@ animations = [{
 }]
 
 [node name="PlatformRotator" type="Area2D" unique_id=1681111025]
+collision_layer = 4
 script = ExtResource("2_4w2xs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=226253901]
