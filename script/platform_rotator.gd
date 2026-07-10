@@ -5,8 +5,7 @@ class_name PlatformRotator
 
 func _ready() -> void:
     super._ready()
-    if not platforms:
-        push_warning("There is a platform rotator without any assigned platforms!")
+    assert(!platforms.is_empty(), "There is a platform rotator without any assigned platforms!")
 
 
 func left_action() -> void:

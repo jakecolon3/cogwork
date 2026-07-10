@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bprvam8q5je8s"]
+
+[ext_resource type="TileSet" uid="uid://3tbf8svna2ew" path="res://scenes/resources/new_tile_set.tres" id="1_0dmn6"]
+[ext_resource type="Script" uid="uid://cmyghpm5comu" path="res://script/platform.gd" id="2_gnn0o"]
+
+[node name="Platform" type="TileMapLayer" unique_id=1337940956 node_paths=PackedStringArray("path")]
+tile_set = ExtResource("1_0dmn6")
+use_kinematic_bodies = true
+physics_quadrant_size = 1
+script = ExtResource("2_gnn0o")
+path = NodePath("Path2D")
+
+[node name="Path2D" type="Path2D" parent="." unique_id=333065755]

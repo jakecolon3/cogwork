@@ -147,7 +147,7 @@ func _physics_process(delta: float) -> void:
                         0, 1))
     velocity -= velocity.slide(gravity_direction) * (
                 FRICTION if is_on_floor() else air_friction)
-    # TODO: rework this shit
+    # TODO:? rework this shit
     #       I might've forgotten deltas in movement code
     var direction := Input.get_axis("move_left", "move_right")
     if direction:
@@ -183,11 +183,11 @@ func _on_interact_area_area_entered(area: Area2D) -> void:
 
 
 func _on_interact_area_area_exited(area: Area2D) -> void:
-    interactable = null
+    if interactable == area:
+        interactable = null
 
 
 # handle obstacle collisions
-# TODO: differentiate bodies in same collision layer? maybe not necessary
 func _on_collisions_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
     if body is not TileMapLayer:
         push_error("`Player/Collisions` collided with something that is not a tile")

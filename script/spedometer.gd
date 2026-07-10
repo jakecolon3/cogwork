@@ -10,4 +10,4 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-    text = "Velocity: {a}\nFriction: {b}\nRotation: {c}\nGrounded: {d}".format({"a": floor(player.velocity), "b": floor(player.air_friction), "c": player.rotation, "d": player.is_on_floor()})
+    text = "Position: %s, Velocity: %s\nRotation: %s" % [floor(player.position), floor(player.velocity), player.rotation]

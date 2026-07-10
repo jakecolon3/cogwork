@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://b2v5eiqe33qjy"]
+[gd_scene format=3 uid="uid://b2v5eiqe33qjy"]
 
 [ext_resource type="Script" uid="uid://cmyghpm5comu" path="res://script/platform.gd" id="1_nlgqw"]
 [ext_resource type="PackedScene" uid="uid://cx7tawu23juve" path="res://scenes/tiles.tscn" id="3_507ja"]
@@ -7,4 +7,4 @@
 script = ExtResource("1_nlgqw")
 
 [node name="Tiles" parent="." unique_id=416365497 instance=ExtResource("3_507ja")]
-tile_map_data = PackedByteArray("AAD9////AAABAAAABwD+////AAACAAIAAQD/////AAACAAIAAQAAAP//AAACAAIAAQABAP//AAACAAIAAQACAP//AAABAAAABgA=")
+tile_map_data = PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 1, 0, 0, 0, 7, 0, 1, 0, 255, 255, 0, 0, 2, 0, 2, 0, 1, 0, 2, 0, 255, 255, 0, 0, 2, 0, 2, 0, 1, 0, 3, 0, 255, 255, 0, 0, 2, 0, 2, 0, 1, 0, 4, 0, 255, 255, 0, 0, 1, 0, 0, 0, 6, 0)
