@@ -377,10 +377,9 @@ animations = [{
 size = Vector2(96, 96)
 
 [node name="Player" type="CharacterBody2D" unique_id=323791644]
-floor_stop_on_slope = false
 floor_constant_speed = true
 floor_block_on_wall = false
-safe_margin = 0.001
+safe_margin = 0.5
 script = ExtResource("1_g2els")
 
 [node name="PhysicsHitbox" type="CollisionShape2D" parent="." unique_id=829484731]

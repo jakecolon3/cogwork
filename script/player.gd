@@ -57,16 +57,12 @@ func add_to_input_buffer(action: String):
 func debug_inputs() -> void:
     if Input.is_action_just_pressed("debug_1"):
         gravity_direction = Vector2(0, 1)
-        print("debug_1")
     if Input.is_action_just_pressed("debug_2"):
         gravity_direction = Vector2(0, -1)
-        print("debug_2")
     if Input.is_action_just_pressed("debug_3"):
         gravity_direction = Vector2(1, 0)
-        print("debug_3")
     if Input.is_action_just_pressed("debug_4"):
         gravity_direction = Vector2(-1, 0)
-        print("debug_4")
 
 
 func die() -> void:
@@ -160,7 +156,8 @@ func _physics_process(delta: float) -> void:
             $PlayerSprite.flip_h = false
         else:
             $PlayerSprite.flip_h = true
-        if $PlayerSprite.animation == "idle" and is_on_floor():
+        if $PlayerSprite.animation == "idle" and is_on_floor() and (
+            Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")):
             $PlayerSprite.play("start_walk")
         if $PlayerSprite.animation == "jump" and is_on_floor():
             $PlayerSprite.play("walk")
@@ -184,9 +181,11 @@ func _on_player_sprite_animation_finished() -> void:
 
 func _on_interact_area_area_entered(area: Area2D) -> void:
     interactable = area
+    (area as Interactable).show_popup()
 
 
 func _on_interact_area_area_exited(area: Area2D) -> void:
+    (area as Interactable).hide_popup()
     if interactable == area:
         interactable = null
 
