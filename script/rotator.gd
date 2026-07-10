@@ -1,7 +1,6 @@
 extends Interactable
 class_name Rotator
 
-var attached    : bool = false
 var player      : Player
 
 
@@ -19,10 +18,15 @@ func right_action() -> void:
 
 
 func detach() -> void:
-    attached = false
     player = null
 
 
 func attach(to: Player) -> void:
-    attached = true
     player = to
+
+
+func _interact(interactor: Player) -> void:
+    if player:
+        detach()
+    else:
+        attach(interactor)

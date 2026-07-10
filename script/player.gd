@@ -26,7 +26,6 @@ var air_friction     : float
 var respawn_location : Vector2
 var position_buffer  : Array[Vector2]
 var gear_sprite      : AnimatedSprite2D
-var can_interact     : bool
 var interactable     : Interactable
 
 
@@ -74,24 +73,12 @@ func die() -> void:
 
 
 func interact() -> void:
-    if not can_interact:
+    if not interactable:
         return
     if interactable is Rotator:
-        # TODO: Rotator._interact()
-        var rotator := interactable as Rotator
-        rotator_interact(rotator)
-    else:
-        interactable._interact()
-
-
-func rotator_interact(rotator: Rotator) -> void:
-    if attached:
-        attached = false
-        (attached_to as Rotator).detach()
-    else:
-        attached    = true
-        attached_to = rotator
-        rotator.attach(self)
+        attached = !attached
+        attached_to = interactable as Rotator
+    interactable._interact(self)
 
 
 func is_falling() -> bool:
@@ -100,6 +87,7 @@ func is_falling() -> bool:
 
 func _physics_process(delta: float) -> void:
     if is_falling(): bounced = false
+
     add_to_position_buffer(position)
     rotation = lerp_angle(rotation, gravity_direction.angle() - PI/2,
                           LERP_SPEED * delta)
@@ -180,9 +168,8 @@ func _physics_process(delta: float) -> void:
     move_and_slide()
 
 
-func _process(delta: float) -> void:
-    pass
-
+# func _process(delta: float) -> void:
+#     pass
 
 
 func _on_player_sprite_animation_finished() -> void:
@@ -192,12 +179,10 @@ func _on_player_sprite_animation_finished() -> void:
 
 func _on_interact_area_area_entered(area: Area2D) -> void:
     interactable = area
-    can_interact = true
 
 
 func _on_interact_area_area_exited(area: Area2D) -> void:
     interactable = null
-    can_interact = false
 
 
 # handle obstacle collisions
@@ -219,3 +204,5 @@ func _on_collisions_body_shape_entered(body_rid: RID, body: Node2D, body_shape_i
                 set_deferred("bounced", true)
                 set_deferred("velocity", -velocity.slide(right_vec) * 1.2 +
                                           velocity.slide(gravity_direction))
+        _:
+            push_error("Undefined behaviour for collided object")

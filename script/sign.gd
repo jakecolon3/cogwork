@@ -8,5 +8,5 @@ func _ready() -> void:
     if text:
         $Label.text = text
 
-func _interact() -> void:
+func _interact(interactor: Player) -> void:
     visible = !visible

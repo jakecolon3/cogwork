@@ -17,5 +17,5 @@ func _ready() -> void:
     add_child(collision_area)
     add_child(sprite)
 
-func _interact() -> void:
+func _interact(interactor: Player) -> void:
     pass
