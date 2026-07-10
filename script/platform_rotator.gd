@@ -5,7 +5,12 @@ class_name PlatformRotator
 
 func _ready() -> void:
     super._ready()
-    assert(!platforms.is_empty(), "There is a platform rotator without any assigned platforms!")
+    for child in get_children():
+        if child is Platform:
+            platforms.append(child as Platform)
+    assert(!platforms.is_empty(), "a zi sto platform rotator non ha piattaforme assegnate")
+    for platform in platforms:
+        platform.call_deferred("reparent", get_parent())
 
 
 func left_action() -> void:

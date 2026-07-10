@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://csvyhbau1xdjo" path="res://script/platform_rotator.gd" id="1_8bete"]
 [ext_resource type="Texture2D" uid="uid://1hwhqktu83f2" path="res://sprite/temp-interactable-tiles.png" id="2_3wola"]
+[ext_resource type="PackedScene" uid="uid://bprvam8q5je8s" path="res://scenes/platform_new.tscn" id="3_3wola"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8e2h0"]
 atlas = ExtResource("2_3wola")
@@ -21,3 +22,5 @@ animations = [{
 [node name="PlatformRotator" type="Area2D" unique_id=1792329078]
 script = ExtResource("1_8bete")
 frames = SubResource("SpriteFrames_8nthm")
+
+[node name="Platform" parent="." unique_id=1337940956 instance=ExtResource("3_3wola")]
