@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 
+# TODO: investigate flickering after rotations
 const EPSILON          = 1e-3
 const SPEED            = 200.0
 const ACCEL            = 35.0
@@ -139,7 +140,7 @@ func _physics_process(delta: float) -> void:
         velocity = (velocity.slide(right_vec) * 0.25 +
                     velocity.slide(gravity_direction))
 
-    # scale air friction based on speed (not working rn)
+    # TODO:? scale air friction based on speed (not working rn)
     air_friction = lerp(MAX_AIR_FRICTION,
                         AIR_FRICTION,
                         clamp(velocity.slide(gravity_direction).length() / FRICTION_CAP,

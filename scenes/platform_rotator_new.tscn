@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dty0v7qkw0hum"]
+
+[ext_resource type="Script" uid="uid://csvyhbau1xdjo" path="res://script/platform_rotator.gd" id="1_8bete"]
+[ext_resource type="Texture2D" uid="uid://1hwhqktu83f2" path="res://sprite/temp-interactable-tiles.png" id="2_3wola"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8e2h0"]
+atlas = ExtResource("2_3wola")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8nthm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8e2h0")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="PlatformRotator" type="Area2D" unique_id=1792329078]
+script = ExtResource("1_8bete")
+frames = SubResource("SpriteFrames_8nthm")

@@ -4,6 +4,7 @@ class_name PlatformRotator
 @export var platforms: Array[Platform]
 
 func _ready() -> void:
+    super._ready()
     if not platforms:
         push_warning("There is a platform rotator without any assigned platforms!")
 
