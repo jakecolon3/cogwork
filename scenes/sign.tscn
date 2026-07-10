@@ -1,6 +1,18 @@
 [gd_scene format=3 uid="uid://dma227x6kqexa"]
 
 [ext_resource type="Script" uid="uid://c5adcxbhcnx7b" path="res://script/sign.gd" id="1_shbub"]
+[ext_resource type="Texture2D" uid="uid://c5jv0tp6aqsl4" path="res://sprite/temp-sign.png" id="2_kd50q"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7gix3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_kd50q")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6w6ra"]
 bg_color = Color(0, 0, 0, 1)
@@ -13,6 +25,7 @@ border_color = Color(0, 0, 0, 1)
 [node name="Sign" type="Area2D" unique_id=615257632]
 collision_layer = 0
 script = ExtResource("1_shbub")
+frames = SubResource("SpriteFrames_7gix3")
 
 [node name="Label" type="Label" parent="." unique_id=39470903]
 offset_left = -120.0
@@ -24,3 +37,8 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_6w6ra")
 text = "Default Text"
 autowrap_mode = 3
 max_lines_visible = 5
+
+[node name="Timer" type="Timer" parent="." unique_id=1551791879]
+wait_time = 0.05
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

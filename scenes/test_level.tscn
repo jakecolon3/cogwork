@@ -38,8 +38,13 @@ position = Vector2(544, 600)
 position = Vector2(324, 588)
 
 [node name="Sign" parent="." unique_id=615257632 instance=ExtResource("6_qcd3b")]
-position = Vector2(184, 624)
-text = "Hello, World! This is a test paragraph. This is a different line."
+position = Vector2(180, 612)
+
+[node name="Label" parent="Sign" index="0" unique_id=39470903]
+text = "Hello, World! This is a test paragraph.
+This is a different line.
+HIIIIII
+arisntairstmarnstaimnsert"
 
 [node name="PlatformRotator" parent="." unique_id=1792329078 node_paths=PackedStringArray("platforms") instance=ExtResource("6_88ety")]
 position = Vector2(780, 588)
@@ -52,4 +57,5 @@ tile_map_data = PackedByteArray("AAD+/wAAAAABAAAABwD//wAAAAACAAIAAQAAAAAAAAACAAI
 [node name="Path2D" parent="Platform" index="0" unique_id=333065755]
 curve = SubResource("Curve2D_qcd3b")
 
+[editable path="Sign"]
 [editable path="Platform"]
