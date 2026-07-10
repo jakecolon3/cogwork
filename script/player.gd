@@ -8,7 +8,7 @@ const SPEED            = 200.0
 const ACCEL            = 35.0
 const AIR_ACCEL        = 30.0
 const SPEED_CAP_H      = 150.0
-const SPEED_CAP_V      = 10000.0
+const SPEED_CAP_V      = 1000.0
 const FRICTION_CAP     = 600.0
 const JUMP_VELOCITY    = -300.0
 const LERP_SPEED       = 12.0
@@ -17,6 +17,7 @@ const POS_BUFFER_SIZE  = 3
 const FRICTION         = 0.2
 const AIR_FRICTION     = 0.01
 const MAX_AIR_FRICTION = 0.3
+const DEFAULT_GRAVITY  = Vector2(0, 1)
 var bounced          : bool # HACK:
 var gravity_direction: Vector2
 var right_vec        : Vector2
@@ -31,7 +32,7 @@ var interactable     : Interactable
 
 
 func _ready() -> void:
-    gravity_direction = Vector2(0, 1)
+    gravity_direction = DEFAULT_GRAVITY
     right_vec = Vector2(1, 0)
     input_buffer = []
     position_buffer = []
@@ -70,6 +71,8 @@ func debug_inputs() -> void:
 
 func die() -> void:
     set_deferred("position", respawn_location)
+    set_deferred("velocity", Vector2.ZERO)
+    gravity_direction = DEFAULT_GRAVITY
     gear_sprite.set_deferred("position", position)
 
 
@@ -119,7 +122,8 @@ func _physics_process(delta: float) -> void:
     if not is_on_floor():
         if $PlayerSprite.animation != "jump":
             $PlayerSprite.play("jump")
-        velocity += (get_gravity().length() * gravity_direction) * delta
+        if velocity.slide(right_vec).length() < SPEED_CAP_V:
+            velocity += (get_gravity().length() * gravity_direction) * delta
 
 
     # slide returns a vector which has only has the component of the starting vector that is perpendicular to the argument
