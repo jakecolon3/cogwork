@@ -5,4 +5,3 @@
 [node name="Tiles" type="TileMapLayer" unique_id=416365497]
 tile_set = ExtResource("1_1g8qg")
 use_kinematic_bodies = true
-physics_quadrant_size = 1
