@@ -90,6 +90,7 @@ pause={
 2d_physics/layer_1="tiles"
 2d_physics/layer_2="obstacles"
 2d_physics/layer_3="interactable"
+2d_physics/layer_4="spring"
 
 [physics]
 

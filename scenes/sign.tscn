@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dma227x6kqexa"]
+
+[ext_resource type="Script" uid="uid://c5adcxbhcnx7b" path="res://script/sign.gd" id="1_shbub"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6w6ra"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+
+[node name="Sign" type="Area2D" unique_id=615257632]
+collision_layer = 0
+script = ExtResource("1_shbub")
+
+[node name="Label" type="Label" parent="." unique_id=39470903]
+offset_left = -120.0
+offset_top = -120.0
+offset_right = 120.0
+offset_bottom = -48.0
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_6w6ra")
+text = "Default Text"
+autowrap_mode = 3
+max_lines_visible = 5

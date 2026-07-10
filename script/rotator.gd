@@ -5,6 +5,7 @@ var attached    : bool = false
 var player      : Player
 
 
+# TODO: _interact()
 func _ready() -> void:
     super._ready()
 

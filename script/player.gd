@@ -75,6 +75,7 @@ func interact() -> void:
     if not can_interact:
         return
     if interactable is Rotator:
+        # TODO: Rotator._interact()
         var rotator := interactable as Rotator
         rotator_interact(rotator)
     else:
