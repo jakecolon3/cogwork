@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://dwcu4q4jqepj3" path="res://scenes/debug_hud.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://cw388qlroowp7" path="res://scenes/ui.tscn" id="5_tbgi4"]
 
-[node name="Main" type="Node2D" unique_id=420152373 node_paths=PackedStringArray("level")]
+[node name="Main" type="Node2D" unique_id=420152373]
 script = ExtResource("1_jyhfs")
-level = NodePath("")
+level_name = "level_0"
 
 [node name="Player" parent="." unique_id=323791644 instance=ExtResource("1_o5qli")]
 
