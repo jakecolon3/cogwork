@@ -2,12 +2,18 @@ extends Area2D
 class_name Interactable
 
 @export var frames: SpriteFrames
-var sprite: AnimatedSprite2D
+var sprite        : AnimatedSprite2D
 var collision_area: CollisionShape2D
+var popup         : Label
 
 func _ready() -> void:
     set_collision_layer_value(1, false)
     set_collision_layer_value(3, true)
+    popup = Label.new()
+    popup.text = "[F to interact]"
+    popup.label_settings = load("res://scenes/resources/popup_label_settings.tres")
+    popup.position = Vector2(-43, -32)
+    popup.visible = false
     sprite = AnimatedSprite2D.new()
     sprite.sprite_frames = frames
     collision_area = CollisionShape2D.new()
@@ -16,6 +22,16 @@ func _ready() -> void:
     collision_area.shape = rect
     add_child(collision_area)
     add_child(sprite)
+    add_child(popup)
+
 
 func _interact(interactor: Player) -> void:
     pass
+
+
+func show_popup() -> void:
+    popup.visible = true
+
+
+func hide_popup() -> void:
+    popup.visible = false

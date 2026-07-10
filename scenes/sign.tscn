@@ -28,6 +28,7 @@ script = ExtResource("1_shbub")
 frames = SubResource("SpriteFrames_7gix3")
 
 [node name="Label" type="Label" parent="." unique_id=39470903]
+z_index = 1
 offset_left = -120.0
 offset_top = -120.0
 offset_right = 120.0
@@ -36,7 +37,6 @@ theme_override_font_sizes/font_size = 9
 theme_override_styles/normal = SubResource("StyleBoxFlat_6w6ra")
 text = "Default Text"
 autowrap_mode = 3
-max_lines_visible = 5
 
 [node name="Timer" type="Timer" parent="." unique_id=1551791879]
 wait_time = 0.05
