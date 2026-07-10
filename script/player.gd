@@ -16,6 +16,7 @@ const POS_BUFFER_SIZE  = 3
 const FRICTION         = 0.2
 const AIR_FRICTION     = 0.01
 const MAX_AIR_FRICTION = 0.3
+var bounced          : bool # HACK:
 var gravity_direction: Vector2
 var right_vec        : Vector2
 var attached         : bool
@@ -37,6 +38,7 @@ func _ready() -> void:
     gear_sprite = $GearSprite
     $GearSprite.call_deferred("reparent", get_parent())
     gear_sprite.play("default")
+    bounced = false
 
 
 func add_to_position_buffer(pos: Vector2):
@@ -92,7 +94,12 @@ func rotator_interact(rotator: Rotator) -> void:
         rotator.attach(self)
 
 
+func is_falling() -> bool:
+    return velocity.dot(gravity_direction) > 0.0
+
+
 func _physics_process(delta: float) -> void:
+    if is_falling(): bounced = false
     add_to_position_buffer(position)
     rotation = lerp_angle(rotation, gravity_direction.angle() - PI/2,
                           LERP_SPEED * delta)
@@ -139,9 +146,10 @@ func _physics_process(delta: float) -> void:
         add_to_input_buffer("")
 
     # start falling when jump is released
-    if (not is_on_floor() and not Input.is_action_pressed("jump")
-        and velocity.dot(gravity_direction) < 0.0):
-        velocity = velocity.slide(right_vec) * 0.25 + velocity.slide(gravity_direction)
+    if (!is_on_floor() and !Input.is_action_pressed("jump") and
+        !is_falling()  and !bounced):
+        velocity = (velocity.slide(right_vec) * 0.25 +
+                    velocity.slide(gravity_direction))
 
     # scale air friction based on speed (not working rn)
     air_friction = lerp(MAX_AIR_FRICTION,
@@ -176,12 +184,6 @@ func _process(delta: float) -> void:
     pass
 
 
-# handle obstacle collisions
-# TODO: differentiate bodies in same collision layer? maybe not necessary
-func _on_collisions_body_entered(body: Node2D) -> void:
-    print("dead")
-    die()
-
 
 func _on_player_sprite_animation_finished() -> void:
     if $PlayerSprite.animation == "start_walk":
@@ -189,12 +191,31 @@ func _on_player_sprite_animation_finished() -> void:
 
 
 func _on_interact_area_area_entered(area: Area2D) -> void:
-    print("can interact with ", area)
     interactable = area
     can_interact = true
 
 
 func _on_interact_area_area_exited(area: Area2D) -> void:
-    print(area, " left interact range")
     interactable = null
     can_interact = false
+
+
+# handle obstacle collisions
+# TODO: differentiate bodies in same collision layer? maybe not necessary
+func _on_collisions_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+    if body is not TileMapLayer:
+        push_error("`Player/Collisions` collided with something that is not a tile")
+        return
+    var tile_map := body as TileMapLayer
+    print(tile_map)
+    var cell_coords := tile_map.get_coords_for_body_rid(body_rid)
+    var cell_data := tile_map.get_cell_tile_data(cell_coords)
+    assert(cell_data.has_custom_data("type"), "Cell at %s collided but doesn't have custom data!" % cell_coords)
+    match cell_data.get_custom_data("type"):
+        "spike":
+            die()
+        "spring":
+            if is_falling():
+                set_deferred("bounced", true)
+                set_deferred("velocity", -velocity.slide(right_vec) * 1.2 +
+                                          velocity.slide(gravity_direction))

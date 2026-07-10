@@ -394,7 +394,7 @@ rotation_smoothing_speed = 7.0
 [node name="Collisions" type="Area2D" parent="." unique_id=1442353706]
 collision_mask = 2
 
-[node name="DieHitbox" type="CollisionShape2D" parent="Collisions" unique_id=916177598]
+[node name="EntityHitbox" type="CollisionShape2D" parent="Collisions" unique_id=916177598]
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_4v1xc")
 debug_color = Color(0.7730596, 0, 0.12144857, 0.41960785)
@@ -417,7 +417,7 @@ collision_mask = 4
 shape = SubResource("RectangleShape2D_y4kfo")
 debug_color = Color(0.195196, 0.6418443, 0, 0.41960785)
 
-[connection signal="body_entered" from="Collisions" to="." method="_on_collisions_body_entered"]
+[connection signal="body_shape_entered" from="Collisions" to="." method="_on_collisions_body_shape_entered"]
 [connection signal="animation_finished" from="PlayerSprite" to="." method="_on_player_sprite_animation_finished"]
 [connection signal="area_entered" from="InteractArea" to="." method="_on_interact_area_area_entered"]
 [connection signal="area_exited" from="InteractArea" to="." method="_on_interact_area_area_exited"]
