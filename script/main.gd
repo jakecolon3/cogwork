@@ -9,18 +9,18 @@ func _ready() -> void:
         $Player.set_deferred("position", spawn_location)
         $Player.respawn_location = spawn_location
         get_tree().paused = true
-    else:
-        $TestLevel.free()
-        var level_scene := load("res://scenes/levels/%s.tscn" % level_name)
-        assert(level_scene, "a zi hai sbagliato il nome del livello")
-        var level : Level = level_scene.instantiate()
-        add_child(level)
-        var spawn_location : Vector2 = level.spawn_location.position
-        $Player.set_deferred("position", spawn_location)
-        $Player.respawn_location = spawn_location
-        level.show()
-        level.get_node("Tiles").enabled = true
-
+        return
+    $TestLevel.free()
+    var level_scene := load("res://scenes/levels/%s.tscn" % level_name)
+    assert(level_scene, "a zi hai sbagliato il nome del livello")
+    var level : Level = level_scene.instantiate()
+    add_child(level)
+    var spawn_location : Vector2 = level.spawn_location.position
+    $Player.set_deferred("position", spawn_location)
+    $Player.respawn_location = spawn_location
+    level.show()
+    level.get_node("Tiles").enabled = true
+    $Player.player_died.connect(level.reset_level)
 
 
 func _on_ui_start_pressed() -> void:
