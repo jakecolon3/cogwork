@@ -1,23 +1,29 @@
 extends CharacterBody2D
 class_name Player
 
+signal player_died
+
 
 # TODO: investigate flickering after rotations
+# TODO: coyote time
 const EPSILON          = 1e-3
 const SPEED            = 200.0
 const ACCEL            = 35.0
 const AIR_ACCEL        = 30.0
 const SPEED_CAP_H      = 150.0
-const SPEED_CAP_V      = 1000.0
+const SPEED_CAP_V      = 800.0
 const FRICTION_CAP     = 600.0
-const JUMP_VELOCITY    = -300.0
+const JUMP_VELOCITY    = -320.0
 const LERP_SPEED       = 12.0
 const INPUT_BUFFER     = 10
 const POS_BUFFER_SIZE  = 3
 const FRICTION         = 0.2
 const AIR_FRICTION     = 0.01
 const MAX_AIR_FRICTION = 0.3
-const DEFAULT_GRAVITY  = Vector2(0, 1)
+const GRAVITY_DOWN  = Vector2(0, 1)
+const GRAVITY_UP  = Vector2(0, -1)
+const GRAVITY_LEFT  = Vector2(-1, 0)
+const GRAVITY_RIGHT  = Vector2(1, 0)
 var bounced          : bool # HACK:
 var gravity_direction: Vector2
 var right_vec        : Vector2
@@ -26,13 +32,15 @@ var attached_to      : Rotator
 var input_buffer     : Array[String]
 var air_friction     : float
 var respawn_location : Vector2
+var respawn_gravity  : Vector2
 var position_buffer  : Array[Vector2]
 var gear_sprite      : AnimatedSprite2D
 var interactable     : Interactable
 
 
 func _ready() -> void:
-    gravity_direction = DEFAULT_GRAVITY
+    gravity_direction = GRAVITY_DOWN
+    respawn_gravity = gravity_direction
     right_vec = Vector2(1, 0)
     input_buffer = []
     position_buffer = []
@@ -54,6 +62,7 @@ func add_to_input_buffer(action: String):
         input_buffer.pop_back()
 
 
+# TODO: remove
 func debug_inputs() -> void:
     if Input.is_action_just_pressed("debug_1"):
         gravity_direction = Vector2(0, 1)
@@ -66,9 +75,12 @@ func debug_inputs() -> void:
 
 
 func die() -> void:
+    player_died.emit()
+    print(respawn_gravity)
+    # TODO: level should handle this
     set_deferred("position", respawn_location)
     set_deferred("velocity", Vector2.ZERO)
-    gravity_direction = DEFAULT_GRAVITY
+    set_deferred("gravity_direction", respawn_gravity)
     gear_sprite.set_deferred("position", position)
 
 
@@ -94,6 +106,8 @@ func _physics_process(delta: float) -> void:
     # HACK:?
     if rotation < EPSILON and rotation > 0 or rotation > -EPSILON and rotation < 0:
         rotation = 0
+
+    # make gear follow
     if position_buffer.size() >= POS_BUFFER_SIZE:
         gear_sprite.set_deferred("position", position_buffer[POS_BUFFER_SIZE - 1])
     else:
@@ -103,7 +117,10 @@ func _physics_process(delta: float) -> void:
         interact()
 
 
+    # TODO: animation
     if attached:
+        if $PlayerSprite.animation != "idle":
+            $PlayerSprite.play("idle")
         position = position.lerp(attached_to.position, LERP_SPEED * delta)
         velocity = Vector2.ZERO
         if Input.is_action_just_pressed("move_right"):
@@ -137,6 +154,7 @@ func _physics_process(delta: float) -> void:
     # start falling when jump is released
     if (!is_on_floor() and !Input.is_action_pressed("jump") and
         !is_falling()  and !bounced):
+        bounced = true
         velocity = (velocity.slide(right_vec) * 0.25 +
                     velocity.slide(gravity_direction))
 
@@ -196,7 +214,6 @@ func _on_collisions_body_shape_entered(body_rid: RID, body: Node2D, body_shape_i
         push_error("`Player/Collisions` collided with something that is not a tile")
         return
     var tile_map := body as TileMapLayer
-    print(tile_map)
     var cell_coords := tile_map.get_coords_for_body_rid(body_rid)
     var cell_data := tile_map.get_cell_tile_data(cell_coords)
     assert(cell_data.has_custom_data("type"), "Cell at %s collided but doesn't have custom data!" % cell_coords)
@@ -208,5 +225,8 @@ func _on_collisions_body_shape_entered(body_rid: RID, body: Node2D, body_shape_i
                 set_deferred("bounced", true)
                 set_deferred("velocity", -velocity.slide(right_vec) * 1.2 +
                                           velocity.slide(gravity_direction))
+        "flag":
+            # TODO:
+            die()
         _:
-            push_error("Undefined behaviour for collided object")
+            push_error("Undefined behaviour for collided object at %s with data %s" % [cell_coords, cell_data])

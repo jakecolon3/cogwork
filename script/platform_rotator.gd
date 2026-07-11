@@ -5,6 +5,7 @@ class_name PlatformRotator
 
 func _ready() -> void:
     super._ready()
+    $Sprite2D.hide()
     for child in get_children():
         if child is Platform:
             platforms.append(child as Platform)
@@ -23,3 +24,11 @@ func right_action() -> void:
     super.right_action()
     for platform in platforms:
         platform.step_forward()
+
+
+# TODO: also warp the platforms instead of letting them lerp
+# BUG:  bad behaviour with checkpoints
+func reset_platforms() -> void:
+    print("Rotator %s resetting platforms" % self)
+    for platform in platforms:
+        platform.point_index = 0

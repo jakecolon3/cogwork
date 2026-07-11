@@ -8,3 +8,9 @@ func _ready() -> void:
         spawn_location = get_node_or_null("SpawnLocation")
     assert(spawn_location, "a zi ti sei dimenticato lo SpawnLocation")
     assert(get_node_or_null("Tiles"), "a zi ti sei dimenticato le Tiles")
+
+func reset_level() -> void:
+    print("resetting level")
+    for child in get_children():
+        if child is PlatformRotator:
+            (child as PlatformRotator).reset_platforms()

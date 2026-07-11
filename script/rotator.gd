@@ -7,6 +7,7 @@ var player      : Player
 # TODO: _interact()
 func _ready() -> void:
     super._ready()
+    $Sprite2D.hide()
 
 
 func left_action() -> void:
