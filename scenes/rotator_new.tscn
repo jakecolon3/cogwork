@@ -1,17 +1,13 @@
 [gd_scene format=3 uid="uid://c110ft0hjoaon"]
 
 [ext_resource type="Script" uid="uid://ca252v2essduy" path="res://script/rotator.gd" id="2_xh32k"]
-[ext_resource type="Texture2D" uid="uid://1hwhqktu83f2" path="res://sprite/temp-interactable-tiles.png" id="3_7ifb6"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5j751"]
-atlas = ExtResource("3_7ifb6")
-region = Rect2(0, 0, 24, 24)
+[ext_resource type="Texture2D" uid="uid://bbf2evd27ghgd" path="res://sprite/marchingegno.png" id="3_vy7xx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_501j6"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5j751")
+"texture": ExtResource("3_vy7xx")
 }],
 "loop": 1,
 "name": &"default",
@@ -21,3 +17,6 @@ animations = [{
 [node name="Rotator" type="Area2D" unique_id=300749276]
 script = ExtResource("2_xh32k")
 frames = SubResource("SpriteFrames_501j6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=102770536]
+texture = ExtResource("3_vy7xx")

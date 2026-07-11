@@ -1,18 +1,14 @@
 [gd_scene format=3 uid="uid://dty0v7qkw0hum"]
 
 [ext_resource type="Script" uid="uid://csvyhbau1xdjo" path="res://script/platform_rotator.gd" id="1_8bete"]
-[ext_resource type="Texture2D" uid="uid://1hwhqktu83f2" path="res://sprite/temp-interactable-tiles.png" id="2_3wola"]
 [ext_resource type="PackedScene" uid="uid://bprvam8q5je8s" path="res://scenes/platform_new.tscn" id="3_3wola"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8e2h0"]
-atlas = ExtResource("2_3wola")
-region = Rect2(24, 0, 24, 24)
+[ext_resource type="Texture2D" uid="uid://bbf2evd27ghgd" path="res://sprite/marchingegno.png" id="4_8e2h0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8nthm"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8e2h0")
+"texture": ExtResource("4_8e2h0")
 }],
 "loop": 1,
 "name": &"default",
@@ -24,3 +20,12 @@ script = ExtResource("1_8bete")
 frames = SubResource("SpriteFrames_8nthm")
 
 [node name="Platform" parent="." unique_id=1337940956 instance=ExtResource("3_3wola")]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=606505719]
+texture = ExtResource("4_8e2h0")
+
+[node name="Label" type="Label" parent="Sprite2D" unique_id=719609517]
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+text = "Plat"
