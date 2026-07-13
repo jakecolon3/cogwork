@@ -78,6 +78,10 @@ func debug_inputs() -> void:
 
 func die() -> void:
     player_died.emit()
+    if attached_to:
+        attached_to.detach()
+    set_deferred("attached", false)
+    set_deferred("attached_to", null)
     # TODO: level should handle this
     set_deferred("position", respawn_location)
     set_deferred("velocity", Vector2.ZERO)
