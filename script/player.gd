@@ -20,11 +20,13 @@ const POS_BUFFER_SIZE  = 3
 const FRICTION         = 0.2
 const AIR_FRICTION     = 0.01
 const MAX_AIR_FRICTION = 0.3
-const GRAVITY_DOWN  = Vector2(0, 1)
-const GRAVITY_UP  = Vector2(0, -1)
-const GRAVITY_LEFT  = Vector2(-1, 0)
-const GRAVITY_RIGHT  = Vector2(1, 0)
+const GRAVITY_DOWN     = Vector2(0, 1)
+const GRAVITY_UP       = Vector2(0, -1)
+const GRAVITY_LEFT     = Vector2(-1, 0)
+const GRAVITY_RIGHT    = Vector2(1, 0)
+const MAX_BOUNCES      = 5
 var bounced          : bool # HACK:
+var bounce_count     : int
 var gravity_direction: Vector2
 var right_vec        : Vector2
 var attached         : bool
@@ -76,7 +78,6 @@ func debug_inputs() -> void:
 
 func die() -> void:
     player_died.emit()
-    print(respawn_gravity)
     # TODO: level should handle this
     set_deferred("position", respawn_location)
     set_deferred("velocity", Vector2.ZERO)
@@ -98,7 +99,8 @@ func is_falling() -> bool:
 
 
 func _physics_process(delta: float) -> void:
-    if is_falling(): bounced = false
+    if is_falling():
+        bounced = false
 
     add_to_position_buffer(position)
     rotation = lerp_angle(rotation, gravity_direction.angle() - PI/2,
@@ -117,17 +119,30 @@ func _physics_process(delta: float) -> void:
         interact()
 
 
-    # TODO: animation
     if attached:
-        if $PlayerSprite.animation != "idle":
-            $PlayerSprite.play("idle")
+        if $PlayerSprite.animation != "rotator" and $PlayerSprite.animation != "attached":
+            $PlayerSprite.play("rotator")
         position = position.lerp(attached_to.position, LERP_SPEED * delta)
         velocity = Vector2.ZERO
         if Input.is_action_just_pressed("move_right"):
             attached_to.right_action()
         elif Input.is_action_just_pressed("move_left"):
             attached_to.left_action()
+
+        gear_sprite.set_deferred("position",
+                                 lerp(gear_sprite.position,
+                                      attached_to.position + Vector2(-1, 4).rotated(attached_to.rotation),
+                                      LERP_SPEED * delta))
+        gear_sprite.set_deferred("rotation",
+                                 lerp_angle(gear_sprite.rotation,
+                                            attached_to.rotation,
+                                            LERP_SPEED * delta))
+        if gear_sprite.animation != "rotator":
+            gear_sprite.play("rotator")
         return
+    else:
+        if gear_sprite.animation != "default":
+            gear_sprite.play("default")
 
     debug_inputs()
     right_vec = gravity_direction.orthogonal()
@@ -137,6 +152,8 @@ func _physics_process(delta: float) -> void:
             $PlayerSprite.play("jump")
         if velocity.slide(right_vec).length() < SPEED_CAP_V:
             velocity += (get_gravity().length() * gravity_direction) * delta
+    else:
+        bounce_count = 0
 
 
     # slide returns a vector which has only has the component of the starting vector that is perpendicular to the argument
@@ -195,11 +212,14 @@ func _physics_process(delta: float) -> void:
 func _on_player_sprite_animation_finished() -> void:
     if $PlayerSprite.animation == "start_walk":
         $PlayerSprite.play("walk")
+    if $PlayerSprite.animation == "rotator":
+        $PlayerSprite.play("attached")
 
 
 func _on_interact_area_area_entered(area: Area2D) -> void:
     interactable = area
-    (area as Interactable).show_popup()
+    var area_interactable := area as Interactable
+    area_interactable.show_popup()
 
 
 func _on_interact_area_area_exited(area: Area2D) -> void:
@@ -213,9 +233,9 @@ func _on_collisions_body_shape_entered(body_rid: RID, body: Node2D, body_shape_i
     if body is not TileMapLayer:
         push_error("`Player/Collisions` collided with something that is not a tile")
         return
-    var tile_map := body as TileMapLayer
+    var tile_map    := body as TileMapLayer
     var cell_coords := tile_map.get_coords_for_body_rid(body_rid)
-    var cell_data := tile_map.get_cell_tile_data(cell_coords)
+    var cell_data   := tile_map.get_cell_tile_data(cell_coords)
     assert(cell_data.has_custom_data("type"), "Cell at %s collided but doesn't have custom data!" % cell_coords)
     match cell_data.get_custom_data("type"):
         "spike":
@@ -223,10 +243,19 @@ func _on_collisions_body_shape_entered(body_rid: RID, body: Node2D, body_shape_i
         "spring":
             if is_falling():
                 set_deferred("bounced", true)
-                set_deferred("velocity", -velocity.slide(right_vec) * 1.2 +
-                                          velocity.slide(gravity_direction))
+                bounce_count += 1
+                print(get_bounce_multiplier())
+                set_deferred("velocity",
+                             -velocity.slide(right_vec) * get_bounce_multiplier() +
+                              velocity.slide(gravity_direction))
         "flag":
             # TODO:
             die()
         _:
             push_error("Undefined behaviour for collided object at %s with data %s" % [cell_coords, cell_data])
+
+
+func get_bounce_multiplier() -> float:
+    var weight := clampf(max(bounce_count as float - 1, 0)/MAX_BOUNCES as float, 0, 1.0)
+    print(weight)
+    return lerp(1.2, 0.5, weight)
