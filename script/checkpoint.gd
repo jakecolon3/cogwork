@@ -15,7 +15,7 @@ enum RespawnGravityDirections {
 func _on_body_entered(body: Node2D) -> void:
     if body is Player:
         var player = body as Player
-        player.respawn_location = global_position
+        player.respawn_location = $RespawnLocation.global_position
         match respawn_gravity_direction:
             RespawnGravityDirections.DOWN:
                 player.respawn_gravity = Player.GRAVITY_DOWN

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://11hggbl3saxy"]
+
+[ext_resource type="Texture2D" uid="uid://bktqv487b4xqd" path="res://sprite/arrow.png" id="1_fmyxh"]
+
+[node name="Freccia" type="Sprite2D" unique_id=639642346]
+texture = ExtResource("1_fmyxh")

@@ -15,15 +15,19 @@ func _ready() -> void:
 
 
 func left_action() -> void:
-    super.left_action()
     for platform in platforms:
+        if !platform.is_close_to_target():
+            return
         platform.step_backward()
+    super.left_action()
 
 
 func right_action() -> void:
-    super.right_action()
     for platform in platforms:
+        if !platform.is_close_to_target():
+            return
         platform.step_forward()
+    super.right_action()
 
 
 # TODO: also warp the platforms instead of letting them lerp

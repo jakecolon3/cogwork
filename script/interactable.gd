@@ -11,6 +11,7 @@ func _ready() -> void:
     set_collision_layer_value(3, true)
     popup = Label.new()
     popup.text = "[F to interact]"
+    popup.pivot_offset_ratio = Vector2(0.5, 0.5)
     popup.label_settings = load("res://scenes/resources/popup_label_settings.tres")
     popup.position = Vector2(-43, -32)
     popup.visible = false
@@ -24,6 +25,12 @@ func _ready() -> void:
     add_child(sprite)
     add_child(popup)
 
+
+func _process(delta: float) -> void:
+    var bodies := get_overlapping_bodies()
+    for b in bodies:
+        if b is Player:
+            popup.rotation = b.rotation - rotation
 
 func _interact(interactor: Player) -> void:
     pass

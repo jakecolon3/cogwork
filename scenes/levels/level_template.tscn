@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://brrv4ncmwpnbx"]
+
+[ext_resource type="Script" uid="uid://djmtect10djym" path="res://script/level.gd" id="1_4s5u3"]
+[ext_resource type="PackedScene" uid="uid://cx7tawu23juve" path="res://scenes/tiles.tscn" id="2_eokde"]
+[ext_resource type="PackedScene" uid="uid://dty0v7qkw0hum" path="res://scenes/platform_rotator_new.tscn" id="4_j81xe"]
+
+[sub_resource type="Curve2D" id="Curve2D_bujjw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -48, 0, 0, 0, 0, 72, -48)
+}
+point_count = 3
+
+[node name="level_template" type="Node2D" unique_id=1260558917 node_paths=PackedStringArray("spawn_location")]
+script = ExtResource("1_4s5u3")
+spawn_location = NodePath("Marker2D")
+
+[node name="Background" parent="." unique_id=416365497 instance=ExtResource("2_eokde")]
+
+[node name="Tiles" parent="." unique_id=992812443 instance=ExtResource("2_eokde")]
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=50147901]
+position = Vector2(-48, 120)
+
+[node name="PlatformRotator" parent="." unique_id=1792329078 instance=ExtResource("4_j81xe")]
+position = Vector2(-48, 24)
+
+[node name="Platform" parent="PlatformRotator" index="0" unique_id=1337940956]
+position = Vector2(0, 119.99999)
+tile_map_data = PackedByteArray(0, 0, 254, 255, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 255, 255, 0, 0, 2, 0, 4, 0, 5, 0, 0, 0, 0, 0, 0, 0, 2, 0, 4, 0, 5, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="Path2D" parent="PlatformRotator/Platform" index="0" unique_id=333065755]
+curve = SubResource("Curve2D_bujjw")
+
+[editable path="PlatformRotator"]
+[editable path="PlatformRotator/Platform"]

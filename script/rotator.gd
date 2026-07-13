@@ -1,7 +1,7 @@
 extends Interactable
 class_name Rotator
 
-var player      : Player
+var player: Player
 
 
 # TODO: _interact()
