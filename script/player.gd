@@ -152,6 +152,7 @@ func _physics_process(delta: float) -> void:
         if gear_sprite.animation != "default":
             gear_sprite.play("default")
 
+    $PlayerSprite.show()
     debug_inputs()
     right_vec = gravity_direction.orthogonal()
 
@@ -223,8 +224,11 @@ func _physics_process(delta: float) -> void:
 func _on_player_sprite_animation_finished() -> void:
     if $PlayerSprite.animation == "start_walk":
         $PlayerSprite.play("walk")
-    if $PlayerSprite.animation == "rotator":
-        $PlayerSprite.play("attached")
+    if $PlayerSprite.animation == "rotator" and $PlayerSprite.frame != 0:
+        if $PlayerSprite.frame != 11:
+            $PlayerSprite.play_backwards("rotator")
+        else:
+            $PlayerSprite.hide()
 
 
 func _on_interact_area_area_entered(area: Area2D) -> void:
