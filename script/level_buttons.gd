@@ -11,8 +11,6 @@ func _ready() -> void:
     $ScrollContainer/VBoxContainer/LevelButton.pressed_.connect(start_level)
     var level_dir := DirAccess.open("res://scenes/levels")
     levels = level_dir.get_files()
-    for i in range(10):
-        levels.append("level_%s.tscn" % i)
     for level in levels:
         if level == "level_0.tscn": continue
         var basename := level.split(".")[0]

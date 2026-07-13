@@ -9,7 +9,7 @@ signal level_complete
 # TODO: coyote time
 const EPSILON          = 1e-3
 const SPEED            = 200.0
-const ACCEL            = 35.0
+const ACCEL            = 3000.0
 const AIR_ACCEL        = 30.0
 const SPEED_CAP_H      = 150.0
 const SPEED_CAP_V      = 800.0
@@ -197,7 +197,7 @@ func _physics_process(delta: float) -> void:
     #       I might've forgotten deltas in movement code
     var direction := Input.get_axis("move_left", "move_right")
     if direction:
-        velocity = velocity.move_toward(direction * right_vec * SPEED_CAP_H + velocity.slide(right_vec), ACCEL)
+        velocity = velocity.move_toward(direction * right_vec * SPEED_CAP_H + velocity.slide(right_vec), ACCEL * delta)
         if direction < 0:
             $PlayerSprite.flip_h = false
         else:
@@ -266,4 +266,4 @@ func _on_collisions_body_shape_entered(body_rid: RID, body: Node2D, body_shape_i
 
 func get_bounce_multiplier() -> float:
     var weight := clampf(max(bounce_count as float - 1, 0)/MAX_BOUNCES as float, 0, 1.0)
-    return lerp(1.2, 0.5, weight)
+    return lerp(1.3, 0.5, weight)

@@ -8,6 +8,7 @@
 
 [node name="Main" type="Node2D" unique_id=420152373]
 script = ExtResource("1_jyhfs")
+level_name = "a"
 
 [node name="Player" parent="." unique_id=323791644 instance=ExtResource("1_o5qli")]
 
@@ -24,5 +25,6 @@ process_mode = 3
 [connection signal="player_died" from="Player" to="HUD/UI" method="_on_player_died"]
 [connection signal="level_selected" from="HUD/UI" to="." method="_on_ui_level_selected"]
 [connection signal="next_level" from="HUD/UI" to="." method="_on_ui_next_level"]
+[connection signal="respawn" from="HUD/UI" to="." method="_on_ui_respawn"]
 [connection signal="respawn" from="HUD/UI" to="Player" method="respawn"]
 [connection signal="toggled_pause" from="HUD/UI" to="." method="_on_ui_toggled_pause"]

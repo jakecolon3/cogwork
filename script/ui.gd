@@ -65,8 +65,8 @@ func _on_player_died() -> void:
 
 func _on_respawn_button_pressed() -> void:
     respawn.emit()
-    reset_level.emit()
     $DiedMenu.hide()
+    $PauseMenu.hide()
     get_tree().paused = false
 
 

@@ -73,3 +73,7 @@ func _on_player_level_complete() -> void:
         $HUD/UI/LevelComplete/Label.position -= Vector2(50, 0)
         $HUD/UI/LevelComplete/NextLevelButton.free()
     $HUD/UI/LevelComplete.show()
+
+
+func _on_ui_respawn() -> void:
+    cur_level.reset_platforms()

@@ -64,7 +64,6 @@ theme = SubResource("Theme_6w6ra")
 text = "EXIT"
 
 [node name="PauseMenu" type="ColorRect" parent="." unique_id=980632456]
-visible = false
 layout_mode = 0
 offset_right = 556.0
 offset_bottom = 324.0
@@ -82,28 +81,36 @@ text = "PAUSED"
 [node name="ResumeButton" type="Button" parent="PauseMenu" unique_id=478832696]
 layout_mode = 0
 offset_left = 224.0
-offset_top = 144.0
+offset_top = 124.0
 offset_right = 320.0
-offset_bottom = 178.0
+offset_bottom = 158.0
 theme_override_font_sizes/font_size = 18
 text = "Resume"
 
-[node name="QuitButton" type="Button" parent="PauseMenu" unique_id=201433035]
+[node name="RespawnButton" type="Button" parent="PauseMenu" unique_id=1725607950]
 layout_mode = 0
-offset_left = 224.0
-offset_top = 228.0
-offset_right = 320.0
-offset_bottom = 258.0
-theme_override_font_sizes/font_size = 18
-text = "Quit"
+offset_left = 140.0
+offset_top = 168.0
+offset_right = 404.0
+offset_bottom = 200.0
+text = "Restart From Checkpoint"
 
 [node name="ResetButton" type="Button" parent="PauseMenu" unique_id=551722332]
 layout_mode = 0
 offset_left = 196.0
-offset_top = 188.0
+offset_top = 208.0
 offset_right = 344.0
-offset_bottom = 220.0
+offset_bottom = 240.0
 text = "Restart Level"
+
+[node name="QuitButton" type="Button" parent="PauseMenu" unique_id=201433035]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 248.0
+offset_right = 320.0
+offset_bottom = 278.0
+theme_override_font_sizes/font_size = 18
+text = "Quit"
 
 [node name="LevelSelect" type="ColorRect" parent="." unique_id=1194145343]
 visible = false
@@ -181,6 +188,7 @@ offset_bottom = 192.0
 text = "Restart From Last Checkpoint"
 
 [node name="LevelComplete" type="ColorRect" parent="." unique_id=1480372262]
+visible = false
 layout_mode = 0
 offset_right = 556.0
 offset_bottom = 324.0
@@ -215,8 +223,9 @@ text = "Next Level"
 [connection signal="pressed" from="MainMenu/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MainMenu/ExitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="PauseMenu/ResumeButton" to="." method="toggle_pause"]
-[connection signal="pressed" from="PauseMenu/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PauseMenu/RespawnButton" to="." method="_on_respawn_button_pressed"]
 [connection signal="pressed" from="PauseMenu/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="PauseMenu/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="exit" from="LevelSelect" to="." method="_on_level_select_exit"]
 [connection signal="level_selected" from="LevelSelect" to="." method="_on_level_select_level_selected"]
 [connection signal="pressed" from="DiedMenu/QuitButton" to="." method="_on_quit_button_pressed"]
