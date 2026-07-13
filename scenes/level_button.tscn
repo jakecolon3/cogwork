@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cglirlv3145k"]
+
+[ext_resource type="Script" uid="uid://nkhoeb1dtdwb" path="res://script/level_button.gd" id="1_i0sit"]
+
+[node name="LevelButton" type="Button" unique_id=1045577827]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -508.0
+offset_bottom = -276.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+text = "
+1
+ "
+autowrap_trim_flags = 0
+script = ExtResource("1_i0sit")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -33,6 +33,5 @@ func right_action() -> void:
 # TODO: also warp the platforms instead of letting them lerp
 # BUG:  bad behaviour with checkpoints
 func reset_platforms() -> void:
-    print("Rotator %s resetting platforms" % self)
     for platform in platforms:
         platform.point_index = 0

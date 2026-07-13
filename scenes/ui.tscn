@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://cw388qlroowp7"]
 
 [ext_resource type="Script" uid="uid://dqlc0gi57b4gl" path="res://script/ui.gd" id="1_x4jx1"]
+[ext_resource type="Script" uid="uid://c3kl42c0q474x" path="res://script/level_buttons.gd" id="2_x4jx1"]
+[ext_resource type="PackedScene" uid="uid://cglirlv3145k" path="res://scenes/level_button.tscn" id="3_yev5y"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6w6ra"]
 font_size = 36
@@ -19,10 +21,11 @@ grow_vertical = 2
 script = ExtResource("1_x4jx1")
 
 [node name="MainMenu" type="ColorRect" parent="." unique_id=605801004]
+visible = false
 layout_mode = 0
 offset_right = 556.0
 offset_bottom = 324.0
-color = Color(0.24926102, 0.0018115572, 0.2357803, 1)
+color = Color(0.023529412, 0.16078432, 0.16470589, 1)
 
 [node name="Label" type="Label" parent="MainMenu" unique_id=1694957904]
 layout_mode = 0
@@ -79,7 +82,7 @@ text = "PAUSED"
 [node name="ResumeButton" type="Button" parent="PauseMenu" unique_id=478832696]
 layout_mode = 0
 offset_left = 224.0
-offset_top = 148.0
+offset_top = 144.0
 offset_right = 320.0
 offset_bottom = 178.0
 theme_override_font_sizes/font_size = 18
@@ -88,13 +91,135 @@ text = "Resume"
 [node name="QuitButton" type="Button" parent="PauseMenu" unique_id=201433035]
 layout_mode = 0
 offset_left = 224.0
-offset_top = 196.0
+offset_top = 228.0
 offset_right = 320.0
-offset_bottom = 226.0
+offset_bottom = 258.0
 theme_override_font_sizes/font_size = 18
 text = "Quit"
+
+[node name="ResetButton" type="Button" parent="PauseMenu" unique_id=551722332]
+layout_mode = 0
+offset_left = 196.0
+offset_top = 188.0
+offset_right = 344.0
+offset_bottom = 220.0
+text = "Restart Level"
+
+[node name="LevelSelect" type="ColorRect" parent="." unique_id=1194145343]
+visible = false
+layout_mode = 0
+offset_right = 556.0
+offset_bottom = 324.0
+color = Color(0.02352343, 0.16112196, 0.16635618, 1)
+script = ExtResource("2_x4jx1")
+
+[node name="Label" type="Label" parent="LevelSelect" unique_id=1534814108]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 24.0
+offset_right = 318.0
+offset_bottom = 44.0
+theme_override_font_sizes/font_size = 21
+text = "Level Select"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LevelSelect" unique_id=1676647920]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 72.0
+offset_right = 532.0
+offset_bottom = 304.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelSelect/ScrollContainer" unique_id=802398975]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LevelButton" parent="LevelSelect/ScrollContainer/VBoxContainer" unique_id=1045577827 instance=ExtResource("3_yev5y")]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Tutorial"
+level = "level_0.tscn"
+
+[node name="ButtonsContainer" type="GridContainer" parent="LevelSelect/ScrollContainer/VBoxContainer" unique_id=119820486]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 7
+
+[node name="DiedMenu" type="ColorRect" parent="." unique_id=1813244472]
+visible = false
+layout_mode = 0
+offset_right = 556.0
+offset_bottom = 324.0
+color = Color(0, 0, 0, 0.26666668)
+
+[node name="Label" type="Label" parent="DiedMenu" unique_id=208114921]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 48.0
+offset_right = 376.0
+offset_bottom = 92.0
+theme_override_font_sizes/font_size = 36
+text = "You died!"
+
+[node name="QuitButton" type="Button" parent="DiedMenu" unique_id=216415668]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 212.0
+offset_right = 312.0
+offset_bottom = 242.0
+theme_override_font_sizes/font_size = 18
+text = "Quit"
+
+[node name="RespawnButton" type="Button" parent="DiedMenu" unique_id=1396163740]
+layout_mode = 0
+offset_left = 108.0
+offset_top = 160.0
+offset_right = 425.0
+offset_bottom = 192.0
+text = "Restart From Last Checkpoint"
+
+[node name="LevelComplete" type="ColorRect" parent="." unique_id=1480372262]
+layout_mode = 0
+offset_right = 556.0
+offset_bottom = 324.0
+color = Color(0, 0, 0, 0.26666668)
+
+[node name="Label" type="Label" parent="LevelComplete" unique_id=1571038713]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 50.0
+offset_right = 452.0
+offset_bottom = 94.0
+theme_override_font_sizes/font_size = 36
+text = "Level Complete!"
+
+[node name="QuitButton" type="Button" parent="LevelComplete" unique_id=1919545437]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 212.0
+offset_right = 312.0
+offset_bottom = 242.0
+theme_override_font_sizes/font_size = 18
+text = "Quit"
+
+[node name="NextLevelButton" type="Button" parent="LevelComplete" unique_id=2073148259]
+layout_mode = 0
+offset_left = 207.5
+offset_top = 160.0
+offset_right = 325.5
+offset_bottom = 192.0
+text = "Next Level"
 
 [connection signal="pressed" from="MainMenu/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MainMenu/ExitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="PauseMenu/ResumeButton" to="." method="toggle_pause"]
 [connection signal="pressed" from="PauseMenu/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="PauseMenu/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="exit" from="LevelSelect" to="." method="_on_level_select_exit"]
+[connection signal="level_selected" from="LevelSelect" to="." method="_on_level_select_level_selected"]
+[connection signal="pressed" from="DiedMenu/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="DiedMenu/RespawnButton" to="." method="_on_respawn_button_pressed"]
+[connection signal="pressed" from="LevelComplete/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="LevelComplete/NextLevelButton" to="." method="_on_next_level_button_pressed"]

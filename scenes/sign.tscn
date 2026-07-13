@@ -1,13 +1,17 @@
 [gd_scene format=3 uid="uid://dma227x6kqexa"]
 
 [ext_resource type="Script" uid="uid://c5adcxbhcnx7b" path="res://script/sign.gd" id="1_shbub"]
-[ext_resource type="Texture2D" uid="uid://c5jv0tp6aqsl4" path="res://sprite/temp-sign.png" id="2_kd50q"]
+[ext_resource type="Texture2D" uid="uid://2hjkwqyk3a5b" path="res://sprite/cartello.png" id="2_kd50q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8yyji"]
+atlas = ExtResource("2_kd50q")
+region = Rect2(0, 0, 24, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7gix3"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_kd50q")
+"texture": SubResource("AtlasTexture_8yyji")
 }],
 "loop": 1,
 "name": &"default",

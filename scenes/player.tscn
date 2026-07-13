@@ -633,6 +633,7 @@ animations = [{
 size = Vector2(96, 96)
 
 [node name="Player" type="CharacterBody2D" unique_id=323791644]
+z_index = 2
 floor_constant_speed = true
 floor_block_on_wall = false
 safe_margin = 0.5
@@ -655,6 +656,7 @@ shape = SubResource("RectangleShape2D_4v1xc")
 debug_color = Color(0.7730596, 0, 0.12144857, 0.41960785)
 
 [node name="GearSprite" type="AnimatedSprite2D" parent="." unique_id=324148486]
+z_index = 2
 position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_4v1xc")
 animation = &"rotator"
