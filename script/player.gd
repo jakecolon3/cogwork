@@ -153,7 +153,7 @@ func _physics_process(delta: float) -> void:
             gear_sprite.play("default")
 
     $PlayerSprite.show()
-    debug_inputs()
+    # debug_inputs()
     right_vec = gravity_direction.orthogonal()
 
     if not is_on_floor():

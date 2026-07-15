@@ -15,6 +15,7 @@ func _ready() -> void:
     $LevelSelect.hide()
     $DiedMenu.hide()
     $LevelComplete.hide()
+    $CreditsScreen.hide()
     started = false
 
 
@@ -73,3 +74,13 @@ func _on_respawn_button_pressed() -> void:
 func _on_next_level_button_pressed() -> void:
     next_level.emit()
     $LevelComplete.hide()
+
+
+func _on_credits_button_pressed() -> void:
+    $MainMenu.hide()
+    $CreditsScreen.show()
+
+
+func _on_back_button_pressed() -> void:
+    $CreditsScreen.hide()
+    $MainMenu.show()

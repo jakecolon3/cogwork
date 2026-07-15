@@ -17,6 +17,7 @@ level_name = "a"
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1830074562]
 
 [node name="DebugHud" parent="HUD" unique_id=15337092 instance=ExtResource("4_jyhfs")]
+visible = false
 
 [node name="UI" parent="HUD" unique_id=681806059 instance=ExtResource("5_tbgi4")]
 process_mode = 3

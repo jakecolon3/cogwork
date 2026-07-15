@@ -38,6 +38,7 @@ func load_level(level_path: String) -> void:
     level_index = get_level_index_from_string(level_path)
     var spawn_location : Vector2 = level.spawn_location.position
     $Player.respawn_location = spawn_location
+    $Player.gravity_direction = $Player.GRAVITY_DOWN
     $Player.set_deferred("position", spawn_location)
     level.show()
     level.get_node("Tiles").enabled = true
@@ -63,6 +64,7 @@ func get_level_path_from_index(index: int) -> String:
 
 func _on_ui_next_level() -> void:
     load_level(get_level_path_from_index(level_index + 1))
+    get_tree().paused = false
 
 
 func _on_player_level_complete() -> void:
